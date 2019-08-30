@@ -1,0 +1,159 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SSH框架连接Oracle的一个简单项目</title>
+  <link rel="stylesheet" href="https://stackedit.io/style.css" />
+</head>
+
+<body class="stackedit">
+  <div class="stackedit__html"><p></p><div class="toc"><h3>SSH框架连接Oracle的一个简单项目</h3><ul><li><a href="#_2">项目准备</a></li><ul><li><a href="#_3">知识准备</a></li><li><a href="#_10">软件</a></li></ul><li><a href="#_21">实操</a></li><ul><li><a href="#_23">代码</a></li><li><a href="#_137">页面展示</a></li></ul><li><a href="#_151">遇到的问题</a></li></ul></div><p></p>
+<h1><a id="_2"></a>项目准备</h1>
+<h2><a id="_3"></a>知识准备</h2>
+<p>下面是我一个新手对于本次项目的了解：</p>
+<blockquote>
+<p>我们是使用spring整合struts2和hibernate，我使用的方法是applicationContext.xml文件整合了hibernate.cfg.xml即springjdbc，所以不需要此文件，整个项目由struts2获取前端数据，hibernate获取数据库数据，两者将数据提交给spring进行注入并操作，之后将数据或指令返还。</p>
+</blockquote>
+<p>如果我的理解有误，请大佬一定要留言告诉我，不要让我一直错下去。。。</p>
+<h2><a id="_10"></a>软件</h2>
+<pre><code>我使用的是eclipse编译器加jdk，使用tomcat服务，首先看一下ssh框架所需要的jar包：
+</code></pre>
+<p><img src="https://img-blog.csdnimg.cn/20190829152826121.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L05pZ2h0V2F0Y2hlcnM=,size_16,color_FFFFFF,t_70" alt="#alt"></p>
+<p><img src="https://img-blog.csdnimg.cn/20190829153058761.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L05pZ2h0V2F0Y2hlcnM=,size_16,color_FFFFFF,t_70" alt=""><br>
+基本是三大框架和jdbc，说实话当时正确找到这些jar包浪费了我好长时间</p>
+<h1><a id="_21"></a>实操</h1>
+<h2><a id="_23"></a>代码</h2>
+<p>代码部分配置文件主要有applicationContext.xml,struts.xml和web.xml，执行代码有Javax、dao、service、action这几部分组成。如图：</p>
+<p><img src="https://img-blog.csdnimg.cn/20190829160712499.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L05pZ2h0V2F0Y2hlcnM=,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<p>applicationContext.xml</p>
+<pre><code>&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;beans xmlns="http://www.springframework.org/schema/beans"
+ xmlns:p="http://www.springframework.org/schema/p"
+ xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+ xmlns:context="http://www.springframework.org/schema/context"
+ xmlns:tx="http://www.springframework.org/schema/tx"
+ xmlns:aop="http://www.springframework.org/schema/aop"
+ xsi:schemaLocation="http://www.springframework.org/schema/aop
+http://www.springframework.org/schema/aop/spring-aop-4.3.xsd
+http://www.springframework.org/schema/tx
+http://www.springframework.org/schema/tx/spring-tx-4.3.xsd
+http://www.springframework.org/schema/context
+http://www.springframework.org/schema/tx/spring-context-4.3.xsd
+http://www.springframework.org/schema/beans
+http://www.springframework.org/schema/beans/spring-beans-4.3.xsd"&gt;
+
+//连接Oracle
+
+&lt;bean id="sessionFactory"
+  class="org.springframework.orm.hibernate5.LocalSessionFactoryBean"&gt;
+  &lt;property name="dataSource" ref="dataSource"&gt;&lt;/property&gt;
+  &lt;property name="hibernateProperties"&gt;
+   &lt;props&gt;
+    &lt;prop key="hibernate.dialect"&gt;org.hibernate.dialect.OracleDialect&lt;/prop&gt;
+    &lt;prop key="hibernate.show_sql"&gt;true&lt;/prop&gt;
+    &lt;prop key="hibernate.format_sql"&gt;true&lt;/prop&gt;
+    &lt;prop key="hibernate.hbm2ddl.auto"&gt;update&lt;/prop&gt;
+   &lt;/props&gt;
+  &lt;/property&gt;
+  &lt;property name="mappingResources"&gt;
+   &lt;list&gt;
+    &lt;value&gt;javas/manager.hbm.xml&lt;/value&gt;
+    &lt;value&gt;javas/system.hbm.xml&lt;/value&gt;
+   &lt;/list&gt;
+  &lt;/property&gt;  
+ &lt;/bean&gt; 
+ &lt;bean id="transactionManager"
+  class="org.springframework.orm.hibernate5.HibernateTransactionManager"&gt;
+  &lt;property name="sessionFactory" ref="sessionFactory"&gt;&lt;/property&gt;
+ &lt;/bean&gt;
+</code></pre>
+<p>strust2.xml</p>
+<pre><code>&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.5//EN" "http://struts.apache.org/dtds/struts-2.5.dtd" &gt;
+
+//用户注册及验证部分
+
+&lt;struts&gt;
+ &lt;package name="Europa_universal" namespace="/" extends="struts-default"&gt;
+  &lt;action name="dologin" class="useraction" method="dologin"&gt;
+   &lt;result name="success"&gt;/Home.jsp&lt;/result&gt;
+   &lt;result name="fail"&gt;/index.html&lt;/result&gt;
+  &lt;/action&gt;
+  &lt;action name="register" class="useraction" method="register"&gt;
+   &lt;result name="success"&gt;/index.html&lt;/result&gt;
+   &lt;result name="input"&gt;/register.html&lt;/result&gt;
+   &lt;result name="fail"&gt;/register.html&lt;/result&gt;
+  &lt;/action&gt;
+  &lt;action name="add" class="sysaction" method="add"&gt;
+   &lt;result name="success"&gt;/countries.jsp&lt;/result&gt;
+   &lt;result name="input"&gt;/countries.jsp&lt;/result&gt;
+   &lt;result name="fail"&gt;/countries.jsp&lt;/result&gt;
+</code></pre>
+<p>dao层用户操作</p>
+<pre><code>public class Useryzimpl implements Useryz{
+ SessionFactory sessionFactory;
+ public void setSessionFactory(SessionFactory sessionFactory) {
+  this.sessionFactory = sessionFactory; }
+ public List&lt;User&gt; search(User cond) { 
+  List&lt;User&gt; ulist = null;
+  Session session = sessionFactory.getCurrentSession();
+  String hql = "from javas.User where name = :name and password = :password and identified1 = :identified1";
+  Query&lt;User&gt; query = ((org.hibernate.Session) session).createQuery(hql);
+  query.setParameter( "name", cond.getName());
+  query.setParameter( "password", cond.getPassword());
+  query.setParameter( "identified1", cond.getIdentified1());
+  ulist = query.getResultList();
+//  System.out.println(ulist.get(0));
+//  System.out.println(ulist.get(1));
+  return ulist; }
+</code></pre>
+<p>action中的ueraction</p>
+<pre><code>public String dologin() throws Exception{
+  System.out.println("12345");
+  List&lt;User&gt; ulist = userservice.login(u);
+  Cookie cookie = new Cookie("User", u.getName() + "@" + u.getIdentified1());
+  ServletActionContext.getRequest().getSession().setAttribute("us", u.getName() + "@" + u.getIdentified1());
+  if (ulist.size() &gt; 0) {
+   System.out.println("成功");
+   return "success";
+  }else {
+   System.out.println("失败");
+   return "fail";
+  }
+ }
+</code></pre>
+<p>以上就是代码的部分核心</p>
+<h2><a id="_137"></a>页面展示</h2>
+<p>我使用的界面来自jQuery插件库<br>
+主页我采用的是轮播图形式，下级页面采用的是左右结构</p>
+<p><img src="https://img-blog.csdnimg.cn/20190829171017107.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L05pZ2h0V2F0Y2hlcnM=,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>
+登录界面</p>
+<p><img src="https://img-blog.csdnimg.cn/20190829171201793.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L05pZ2h0V2F0Y2hlcnM=,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"><br>
+首页</p>
+<p><img src="https://img-blog.csdnimg.cn/20190829171249451.png?x-oss-process=image/watermark,type_ZmFuZ3poZW5naGVpdGk,shadow_10,text_aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L05pZ2h0V2F0Y2hlcnM=,size_16,color_FFFFFF,t_70" alt="在这里插入图片描述"></p>
+<p>国家</p>
+<h1><a id="_151"></a>遇到的问题</h1>
+<ol>
+<li>在dao层中进行操作的是所定义的Java类，不是数据库。</li>
+<li>在action中如果引用了类那么前端确定name时应该使用xx.xxx形式。</li>
+<li>action中如果未使用默认的execute方法，有时会报错，可将默认的删除。</li>
+<li>表单提交刷新重复提交问题我用的是token解决的，代码是我在网上找的，记不住是那个网站了。。。</li>
+</ol>
+<pre><code>&lt;result name="invalid.token" type="freemarker"&gt;/countries.jsp&lt;/result&gt;  
+  &lt;interceptor-ref name="defaultStack"&gt;
+   &lt;param name="workflow.excludeMethods"&gt;default&lt;/param&gt;
+  &lt;/interceptor-ref&gt;  
+  &lt;interceptor-ref name="tokenSession"&gt;
+   &lt;param name="excludeMethods"&gt;default&lt;/param&gt;
+  &lt;/interceptor-ref&gt; 
+</code></pre>
+<p>没有在写的时候及时把错误记下来，目前只想到这么多，还有就是我的网页刷新页面并不会刷新内容很难受。</p>
+<pre><code>我会把自己以后遇到的问题多拿出来，提醒自己，也了解他人，未来共勉，
+</code></pre>
+<p>有什么问题或者建议可以直接告诉我欧</p>
+</div>
+</body>
+
+</html>
