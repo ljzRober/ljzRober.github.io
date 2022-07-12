@@ -1,0 +1,7 @@
+<resources>
+    <item name="status_bar" type="id" />
+    <string name="app_name">My Application</string>
+    <string name="http_url">https://adm.10jqka.com.cn/interface/ad/recommend?appid=2&amp;userid=203422028&amp;platform=iphone&amp;versionid=3708555&amp;adtype=kaiping&amp;width=1080&amp;height=1920&amp;fatigue=303187</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+</resources>
