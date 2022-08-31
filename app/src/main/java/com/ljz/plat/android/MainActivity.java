@@ -218,11 +218,11 @@ public class MainActivity extends AppCompatActivity {
         });
 
         button6.setOnClickListener(v -> {
-            CoordinatorLayout coordinatorLayout = findViewById(R.id.coordinatorLayout);
-            View view = LayoutInflater.from(getApplication().getBaseContext()).inflate(R.layout.permission_dialog, null);
-            Snackbar snackbar = Snackbar.make(coordinatorLayout, "", Snackbar.LENGTH_SHORT);
-            snackbar.setAnchorView(view);
-            snackbar.show();
+//            CoordinatorLayout coordinatorLayout = findViewById(R.id.coordinatorLayout);
+//            View view = LayoutInflater.from(getApplication().getBaseContext()).inflate(R.layout.permission_dialog, null);
+//            Snackbar snackbar = Snackbar.make(coordinatorLayout, "", Snackbar.LENGTH_SHORT);
+//            snackbar.setAnchorView(view);
+//            snackbar.show();
 
             //注册全局监听
             PermissionControl.register(getActivity().getApplicationContext());

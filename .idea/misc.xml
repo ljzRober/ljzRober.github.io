@@ -5,15 +5,19 @@
       <map>
         <entry key="..\:/adproject/Hexin/app/src/main/res/drawable/shape.xml" value="0.1685" />
         <entry key="..\:/adproject/Hexin/app/src/main/res/layout/activity_forth.xml" value="0.24114583333333334" />
-        <entry key="..\:/adproject/Hexin/app/src/main/res/layout/activity_main.xml" value="0.264" />
+        <entry key="..\:/adproject/Hexin/app/src/main/res/layout/activity_main.xml" value="0.1" />
         <entry key="..\:/adproject/Hexin/app/src/main/res/layout/activity_second.xml" value="0.24114583333333334" />
         <entry key="..\:/adproject/Hexin/app/src/main/res/layout/activity_third.xml" value="0.25" />
+        <entry key="..\:/adproject/Hexin/app/src/main/res/layout/activity_web_view.xml" value="0.24114583333333334" />
         <entry key="..\:/adproject/Hexin/app/src/main/res/layout/appwidget_info.xml" value="1.6535714285714285" />
         <entry key="..\:/adproject/Hexin/app/src/main/res/layout/fragment_blank.xml" value="0.12057291666666667" />
         <entry key="..\:/adproject/Hexin/app/src/main/res/layout/permission_dialog.xml" value="0.264" />
         <entry key="..\:/adproject/Hexin/app/src/main/res/layout/shape.xml" value="0.159375" />
         <entry key="..\:/adproject/Hexin/app/src/main/res/layout/snackbar_view.xml" value="0.2" />
         <entry key="..\:/adproject/Hexin/app/src/main/res/layout/widget_layout.xml" value="0.24114583333333334" />
+        <entry key="..\:/adproject/Hexin/stackwidget/src/main/res/layout/activity_main.xml" value="0.1" />
+        <entry key="..\:/adproject/Hexin/stackwidget/src/main/res/layout/widget_item.xml" value="0.24114583333333334" />
+        <entry key="..\:/adproject/Hexin/stackwidget/src/main/res/layout/widget_layout.xml" value="0.24114583333333334" />
       </map>
     </option>
   </component>
