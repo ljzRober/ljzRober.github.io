@@ -47,6 +47,7 @@ public class MainActivity extends AppCompatActivity {
     Button button4;
     Button button5;
     Button button6;
+    Button webView_layout;
     CustomView mCustomView;
 
     @Override
@@ -148,6 +149,7 @@ public class MainActivity extends AppCompatActivity {
         button5 = findViewById(R.id.request_httpData);
         button6 = findViewById(R.id.jump_ForthActivity);
         content = this.findViewById(android.R.id.content);
+        webView_layout = findViewById(R.id.webViewActivity);
         mCustomView = findViewById(R.id.customView);
 
         rootView.setBackgroundColor(Color.TRANSPARENT);
@@ -230,6 +232,15 @@ public class MainActivity extends AppCompatActivity {
             intent.setClass(getContext(), ForthActivity.class);
             startActivity(intent);
         });
+
+        webView_layout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent();
+                intent.setClass(getContext(), WebViewActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
     private Activity getActivity() {
@@ -281,10 +292,4 @@ public class MainActivity extends AppCompatActivity {
         Log.d(TAG, "onDestroy: ");
         super.onDestroy();
     }
-
-    /**
-     * @see TransparentActivity#test()
-     * {@link com.ljz.plat.android.TransparentActivity#test()} dsadaf
-     */
-    private void test(String str){}
 }
