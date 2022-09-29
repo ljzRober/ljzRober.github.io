@@ -86,4 +86,12 @@
         android:layout_centerHorizontal="true"
         android:layout_below="@+id/jump_ForthActivity"/>
 
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/NavigationActivity"
+        android:text="jump_webView_layout"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/webViewActivity"/>
+
 </RelativeLayout>

@@ -30,6 +30,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.material.snackbar.Snackbar;
+import com.ljz.plat.android.navigation.NavigationActivity;
 
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -48,6 +49,7 @@ public class MainActivity extends AppCompatActivity {
     Button button5;
     Button button6;
     Button webView_layout;
+    Button navigation_activity;
     CustomView mCustomView;
 
     @Override
@@ -64,6 +66,16 @@ public class MainActivity extends AppCompatActivity {
         initView();
         statusTranslucent(this);
 //        setFullScreenFlag(this);
+    }
+
+    @Override
+    public void setContentView(int layoutResID) {
+        super.setContentView(layoutResID);
+    }
+
+    @Override
+    public void onAttachedToWindow() {
+        super.onAttachedToWindow();
     }
 
     @Override
@@ -150,6 +162,7 @@ public class MainActivity extends AppCompatActivity {
         button6 = findViewById(R.id.jump_ForthActivity);
         content = this.findViewById(android.R.id.content);
         webView_layout = findViewById(R.id.webViewActivity);
+        navigation_activity = findViewById(R.id.NavigationActivity);
         mCustomView = findViewById(R.id.customView);
 
         rootView.setBackgroundColor(Color.TRANSPARENT);
@@ -238,6 +251,15 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent intent = new Intent();
                 intent.setClass(getContext(), WebViewActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        navigation_activity.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent();
+                intent.setClass(getContext(), NavigationActivity.class);
                 startActivity(intent);
             }
         });
