@@ -35,6 +35,7 @@
         android:layout_height="@dimen/dp_100"
         style="@style/CardView"
         android:theme="@style/CardView"
+        android:background="@color/cardview_dark_background"
         app:circle_color="@color/colorPrimary"/>
 
     <Button

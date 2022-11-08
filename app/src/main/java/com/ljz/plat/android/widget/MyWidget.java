@@ -37,7 +37,7 @@ public class MyWidget extends AppWidgetProvider {
    public void onEnabled(Context context) {
       super.onEnabled(context);
       Log.i(TAG ,"widget  onEnabled 状态");
-      context.startService(new Intent(context, WidgetService.class));
+//      context.startService(new Intent(context, WidgetService.class));
 
    }
 
@@ -49,7 +49,7 @@ public class MyWidget extends AppWidgetProvider {
    public void onUpdate(Context context, AppWidgetManager appWidgetManager, int[] appWidgetIds) {
       super.onUpdate(context, appWidgetManager, appWidgetIds);
       Log.i(TAG ,"widget  onUpdate 状态");
-      context.startService(new Intent(context, WidgetService.class));
+//      context.startService(new Intent(context, WidgetService.class));
 
       for (int appWidgetId : appWidgetIds) {
          // 获取AppWidget对应的视图
@@ -58,7 +58,8 @@ public class MyWidget extends AppWidgetProvider {
          // 设置响应 “按钮(bt_refresh)” 的intent
          Intent btIntent = new Intent().setAction(REFRESH_WIDGET);
          btIntent.setClassName(context, MyWidget.class.getName());
-         PendingIntent btPendingIntent = PendingIntent.getBroadcast(context, 0, btIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+         PendingIntent btPendingIntent = PendingIntent.getBroadcast(context,
+                 0, btIntent, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
          remoteViews.setOnClickPendingIntent(R.id.btn_refound, btPendingIntent);
 
          // 调用集合管理器对集合进行更新
@@ -74,7 +75,7 @@ public class MyWidget extends AppWidgetProvider {
    public void onDisabled(Context context) {
       super.onDisabled(context);
       Log.i(TAG ,"widget  onDisabled 状态");
-      context.stopService(new Intent(context, WidgetService.class));
+//      context.stopService(new Intent(context, WidgetService.class));
    }
 
    /**

@@ -4,18 +4,24 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.DashPathEffect;
 import android.graphics.Paint;
+import android.graphics.Path;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.View;
+import android.widget.ImageView;
 
 import androidx.annotation.Nullable;
 
-public class CustomView extends View {
+import com.ljz.plat.android.mwidget.CurveView;
+
+public class CustomView extends ImageView {
 
    public static final String TAG = "CustomView";
    private int mColor = Color.RED;
    private Paint mPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
+   CurveView curveView;
 
    public CustomView(Context context) {
       super(context);
@@ -46,6 +52,7 @@ public class CustomView extends View {
 
    private void initView() {
       mPaint.setColor(mColor);
+      curveView = new CurveView(getContext(), 1);
    }
 
    @Override
@@ -64,13 +71,27 @@ public class CustomView extends View {
    protected void onDraw(Canvas canvas) {
       super.onDraw(canvas);
       Log.d(TAG, "onDraw: ");
-      final int paddingLeft = getPaddingLeft();
-      final int paddingRight = getPaddingRight();
-      final int paddingTop = getPaddingTop();
-      final int paddingBottom = getPaddingBottom();
-      int width = getWidth() - paddingLeft - paddingRight;
-      int height = getHeight() - paddingTop - paddingBottom;
-      int radius = Math.min(width, height) >> 1;
-      canvas.drawCircle(paddingLeft + width >> 1, paddingTop + height >> 1, radius, mPaint);
+//      final int paddingLeft = getPaddingLeft();
+//      final int paddingRight = getPaddingRight();
+//      final int paddingTop = getPaddingTop();
+//      final int paddingBottom = getPaddingBottom();
+//      int width = getWidth() - paddingLeft - paddingRight;
+//      int height = getHeight() - paddingTop - paddingBottom;
+//      int radius = Math.min(width, height) >> 1;
+//      canvas.drawCircle(paddingLeft + width >> 1, paddingTop + height >> 1, radius, mPaint);
+
+//      mPaint.setStyle(Paint.Style.STROKE);
+//      mPaint.setAntiAlias(true);
+//      mPaint.setStrokeWidth(2);
+//      mPaint.setPathEffect(new DashPathEffect(new float[]{4, 4}, 0));
+//      //绘制长度为4的实线后再绘制长度为4的空白区域，0位间隔
+//      float y = getHeight() / 2;
+//      Path path = new Path();
+//      path.reset();
+//      path.moveTo(0, y);
+//      path.lineTo(getWidth(), y);
+//      canvas.drawPath(path, mPaint);
+
+      this.setImageURI(curveView.getCurvePic(getWidth(), getHeight()));
    }
 }
