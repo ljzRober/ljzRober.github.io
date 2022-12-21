@@ -95,4 +95,20 @@
         android:layout_centerHorizontal="true"
         android:layout_below="@+id/webViewActivity"/>
 
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/WidgetActivity"
+        android:text="jump_webView_layout"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/NavigationActivity"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/fragmentActivity"
+        android:text="fragmentActivity"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/WidgetActivity"/>
+
 </RelativeLayout>

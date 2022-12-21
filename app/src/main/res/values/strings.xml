@@ -4,6 +4,11 @@
     <string name="http_url">https://adm.10jqka.com.cn/interface/ad/recommend?appid=2&amp;userid=203422028&amp;platform=iphone&amp;versionid=3708555&amp;adtype=kaiping&amp;width=1080&amp;height=1920&amp;fatigue=303187</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="hello_dynamic_fragment">Hello dynamic fragment</string>
+    <string name="hello_second_dynamic_fragment">Hello second dynamic fragment</string>
+    <string name="hello_third_dynamic_fragment">Hello third dynamic fragment</string>
+    <string name="hello_child_dynamic_fragment">Hello child dynamic fragment</string>
+
     <string name="hello_destination_fragment">Hello destination fragment</string>
     <string name="appwidget_text">EXAMPLE</string>
     <string name="configure">Configure</string>
@@ -11,4 +16,5 @@
     <string name="app_widget_description">This is an app widget description</string>
     <string name="show_more">show_more</string>
     <string name="setting">setting</string>
+    <string name="refresh">refresh</string>
 </resources>

@@ -16,6 +16,8 @@ import androidx.annotation.Nullable;
 
 import com.ljz.plat.android.mwidget.CurveView;
 
+import java.util.ArrayList;
+
 public class CustomView extends ImageView {
 
    public static final String TAG = "CustomView";
@@ -52,7 +54,7 @@ public class CustomView extends ImageView {
 
    private void initView() {
       mPaint.setColor(mColor);
-      curveView = new CurveView(getContext(), 1);
+      curveView = new CurveView(getContext());
    }
 
    @Override
@@ -92,6 +94,6 @@ public class CustomView extends ImageView {
 //      path.lineTo(getWidth(), y);
 //      canvas.drawPath(path, mPaint);
 
-      this.setImageURI(curveView.getCurvePic(getWidth(), getHeight()));
+//      this.setImageBitmap(curveView.getCurvePic(getWidth(), getHeight(), new ArrayList<>()));
    }
 }

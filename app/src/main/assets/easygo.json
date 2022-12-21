@@ -1,0 +1,36 @@
+{
+  "easyGoVersion": "1.0",
+  "client": "com.ljz.plat.android",
+  "logicEntities": [
+    {
+      "head": {
+        "function": "magicwindow",
+        "required": "true"
+      },
+      "body": {
+        "mode": "0",
+        "defaultDualActivities": {
+          "mainPages": "com.ljz.plat.android.MainActivity",
+          "relatedPage": "com.ljz.plat.android.ForthActivity"
+        },
+        "transActivities": [
+          "com.ljz.plat.android.MainActivity",
+          "com.ljz.plat.android.ForthActivity"
+        ],
+        "Activities": [
+          {
+            "name": "com.ljz.plat.android.MainActivity",
+            "lockSide": "primary"
+          },
+          {
+            "name": "com.ljz.plat.android.ForthActivity",
+            "lockSide": "primary"
+          }
+        ],
+        "UX": {
+          "supportDraggingToFullScreen": "true"
+        }
+      }
+    }
+  ]
+}

@@ -3,8 +3,8 @@ package com.ljz.plat.android;
 import androidx.activity.OnBackPressedCallback;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.core.app.ActivityCompat;
+import androidx.lifecycle.Observer;
 
 import android.Manifest;
 import android.app.Activity;
@@ -16,9 +16,7 @@ import android.content.res.Configuration;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.KeyEvent;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
@@ -26,18 +24,28 @@ import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.material.snackbar.Snackbar;
+import com.ljz.plat.android.fragment.MyFragmentActivity;
+import com.ljz.plat.android.mwidget.CurveView;
+import com.ljz.plat.android.mwidget.data.WidgetContext;
+import com.ljz.plat.android.mwidget.data.accession.DataAccession;
+import com.ljz.plat.android.mwidget.data.accession.NumAccession;
+import com.ljz.plat.android.mwidget.data.model.CurveData;
+import com.ljz.plat.android.mwidget.data.accession.CurveAccession;
+import com.ljz.plat.android.mwidget.data.model.LargeWidget;
+import com.ljz.plat.android.mwidget.data.model.Num;
 import com.ljz.plat.android.navigation.NavigationActivity;
 
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Arrays;
+import java.util.List;
+import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
     private static final String TAG = "backClick";
+    private static final String url = "https://nativeapphq.hexin.cn/hexin";
 
     RelativeLayout rootView;
     Button button;
@@ -48,6 +56,8 @@ public class MainActivity extends AppCompatActivity {
     Button button4;
     Button button5;
     Button button6;
+    Button widgetbt;
+    Button fragment;
     Button webView_layout;
     Button navigation_activity;
     CustomView mCustomView;
@@ -66,6 +76,37 @@ public class MainActivity extends AppCompatActivity {
         initView();
         statusTranslucent(this);
 //        setFullScreenFlag(this);
+    }
+
+    private void drawPreviewPic() {
+//        CurveAccession dataManager = CurveAccession.of(1);
+//        dataManager.getObserver().observe(new Observer<Map<String, CurveData>>() {
+//            @Override
+//            public void onChanged(Map<String, CurveData> result) {
+//                mCustomView.setImageBitmap(
+//                        new CurveView(getContext(), 1)
+//                                .getCurvePic(mCustomView.getWidth(),
+//                                        mCustomView.getHeight(),
+//                                        result.get("300033").getData()));
+//            }
+//        });
+//        DataAccession dataAccession = DataAccession.of(1);
+//        dataAccession.getObserver().observe(new Observer<List<LargeWidget>>() {
+//            @Override
+//            public void onChanged(List<LargeWidget> largeWidgets) {
+//                Log.d(TAG, "onChanged: ");
+//            }
+//        });
+        NumAccession numAccession = NumAccession.of(1);
+        numAccession.getObserver().observe(new Observer<Map<String, Num>>() {
+            @Override
+            public void onChanged(Map<String, Num> stringNumMap) {
+                Log.d(TAG, "onChanged: ");
+            }
+        });
+//        dataManager.AsyncData(WidgetContext.of(Arrays.asList("300033", "300034")));
+//        dataAccession.AsyncData(WidgetContext.of(Arrays.asList("300033", "300034")));
+//        numAccession.AsyncData(WidgetContext.of(Arrays.asList("300033", "300034")).getNumUrl());
     }
 
     @Override
@@ -119,6 +160,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onResume() {
         Log.d(TAG, "onResume: ");
         super.onResume();
+        drawPreviewPic();
         Log.d(TAG, "screen orientation: " + this.getRequestedOrientation());
     }
 
@@ -160,10 +202,12 @@ public class MainActivity extends AppCompatActivity {
         button4 = findViewById(R.id.show_normal_dialog);
         button5 = findViewById(R.id.request_httpData);
         button6 = findViewById(R.id.jump_ForthActivity);
+        widgetbt = findViewById(R.id.WidgetActivity);
         content = this.findViewById(android.R.id.content);
         webView_layout = findViewById(R.id.webViewActivity);
         navigation_activity = findViewById(R.id.NavigationActivity);
         mCustomView = findViewById(R.id.customView);
+        fragment = findViewById(R.id.fragmentActivity);
 
         rootView.setBackgroundColor(Color.TRANSPARENT);
 
@@ -255,11 +299,29 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        widgetbt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent();
+                intent.setClass(getContext(), WidgetActivity.class);
+                startActivity(intent);
+            }
+        });
+
         navigation_activity.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent();
                 intent.setClass(getContext(), NavigationActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        fragment.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent();
+                intent.setClass(getContext(), MyFragmentActivity.class);
                 startActivity(intent);
             }
         });

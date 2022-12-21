@@ -84,7 +84,7 @@ public class StackWidgetProvider extends AppWidgetProvider {
             toastIntent.putExtra(AppWidgetManager.EXTRA_APPWIDGET_ID, appWidgetIds[i]);
             intent.setData(Uri.parse(intent.toUri(Intent.URI_INTENT_SCHEME)));
             PendingIntent toastPendingIntent = PendingIntent.getBroadcast(context, 0, toastIntent,
-                    PendingIntent.FLAG_UPDATE_CURRENT);
+                    PendingIntent.FLAG_UPDATE_CURRENT|PendingIntent.FLAG_IMMUTABLE);
             rv.setPendingIntentTemplate(R.id.stack_view, toastPendingIntent);
 
             appWidgetManager.updateAppWidget(appWidgetIds[i], rv);
